@@ -1,6 +1,7 @@
 ##项目基本配置
 Config类
 先在当前类中定义配置的类，并从中加载配置
+````
 app = Flask(__name__)
 
 class Config(object):
@@ -9,11 +10,11 @@ class Config(object):
 
 app.config.from_object(Config)
 运行测试
-
+````
 SQLAlchemy
 导入数据库扩展，并在配置中填写相关配置
 from flask_sqlalchemy import SQLAlchemy
-
+````
 ...
 
 class Config(object):
@@ -28,12 +29,12 @@ db = SQLAlchemy(app)
 在终端创建数据库
 mysql> create database information charset utf8;
 运行测试
-
+````
 Redis
 创建redis存储对象，并在配置中填写相关配置
 import redis
 ...
-
+````
 class Config(object):
     """工程配置信息"""
     ...
@@ -45,22 +46,23 @@ app.config.from_object(Config)
 db = SQLAlchemy(app)
 redis_store = redis.StrictRedis(host=Config.REDIS_HOST, port=Config.REDIS_PORT)
 运行测试
+````
 
 CSRF
 包含请求体的请求都需要开启CSRF
+````
 from flask_wtf.csrf import CSRFProtect
 ...
 app.config.from_object(Config)
 ...
 CSRFProtect(app)
 CSRFProtect只做验证工作，cookie中的 csrf_token 和表单中的 csrf_token 需要我们自己实现
-
+````
 Session
 利用 flask-session扩展，将 session 数据保存到 Redis 中
 from flask_session import Session
 ...
-
-class Config(object):
+```class Config(object):
     """工程配置信息"""
     SECRET_KEY = "EjpNVSNQTyGi1VvWECj9TvC/+kq3oujee2kTfQUs8yCM6xX9Yjq52v54g+HVoknA"
     ...
@@ -85,7 +87,7 @@ manager = Manager(app)
 Migrate(app, db)
 manager.add_command('db', MigrateCommand)
 ...
-
+```
 
 if __name__ == '__main__':
     manager.run()
